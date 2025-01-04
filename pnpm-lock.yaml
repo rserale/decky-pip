@@ -11,6 +11,18 @@ importers:
       '@decky/api':
         specifier: ^1.1.2
         version: 1.1.2
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
+      cotton-box:
+        specifier: ^0.3.0
+        version: 0.3.0
+      cotton-box-react:
+        specifier: ^0.3.0
+        version: 0.3.0(@types/react@18.3.3)(cotton-box@0.3.0)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react-icons:
         specifier: ^5.3.0
         version: 5.3.0(react@18.3.1)
@@ -22,8 +34,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       '@decky/ui':
-        specifier: ^4.7.2
-        version: 4.7.2
+        specifier: ^4.9.0
+        version: 4.9.0
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -48,8 +60,8 @@ packages:
   '@decky/rollup@1.0.1':
     resolution: {integrity: sha512-dx1VJwD7ul14PA/aZvOwAfY/GujHzqZJ+MFb4OIUVi63/z4KWMSuZrK6QWo0S4LrNW3RzB3ua6LT0WcJaNY9gw==}
 
-  '@decky/ui@4.7.2':
-    resolution: {integrity: sha512-jYXVhbyyupXAcCuFqr7G2qjYVjp8hlMGF8zl8ALv67y0YhikAtfhA2rGUjCuaV3kdo9YrpBh8djRUJXdFPg/Eg==}
+  '@decky/ui@4.9.0':
+    resolution: {integrity: sha512-5iN8UciEpL4WHPdUr4Nzl4/y3CBnLfUN+/1q+WeMUNOzPJICLiwlltfBbyZyMM/ST3nPrDYCLbZCYD9jKWFLXQ==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -239,6 +251,9 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
+  '@types/lodash@4.17.13':
+    resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
+
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
 
@@ -400,6 +415,18 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  cotton-box-react@0.3.0:
+    resolution: {integrity: sha512-XDkMuYQynuaBqThmajRquptls+36mV7QWCG+nYgKszESSz7A05lt3jMc8eOSw5xzIBSrVYS8L15L9ig0EJO1rg==}
+    peerDependencies:
+      '@types/react': '*'
+      cotton-box: '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  cotton-box@0.3.0:
+    resolution: {integrity: sha512-8wofs1ymwlVMSeuJRgnMGZRTpBpKR6T065WGtMI2Y30EtRSbx3+r9x+V40TEPAwptbLRNfBv9lRNo1B+FmKQhA==}
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -612,6 +639,9 @@ packages:
   loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
+
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -920,7 +950,7 @@ snapshots:
       tslib: 2.7.0
       typescript: 5.6.2
 
-  '@decky/ui@4.7.2': {}
+  '@decky/ui@4.9.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -1075,6 +1105,8 @@ snapshots:
       '@types/node': 22.7.4
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/lodash@4.17.13': {}
 
   '@types/minimatch@5.1.2': {}
 
@@ -1261,6 +1293,14 @@ snapshots:
   commondir@1.0.1: {}
 
   concat-map@0.0.1: {}
+
+  cotton-box-react@0.3.0(@types/react@18.3.3)(cotton-box@0.3.0):
+    dependencies:
+      cotton-box: 0.3.0
+    optionalDependencies:
+      '@types/react': 18.3.3
+
+  cotton-box@0.3.0: {}
 
   cross-spawn@7.0.3:
     dependencies:
@@ -1464,6 +1504,8 @@ snapshots:
   json-schema-traverse@0.4.1: {}
 
   loader-runner@4.3.0: {}
+
+  lodash@4.17.21: {}
 
   loose-envify@1.4.0:
     dependencies:
