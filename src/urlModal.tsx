@@ -26,7 +26,7 @@ export const UrlModal = (props: ModalRootProps) => {
 
     return <ConfirmModal
         {...props}
-        strTitle='URL'
+        strTitle='Address'
         onOK={() => {
             setGlobalState(state => ({
                 ...state,

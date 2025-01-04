@@ -1,30 +1,32 @@
 import {
-    ButtonItem,
     PanelSection,
     PanelSectionRow,
     DropdownItem,
     SliderField,
-    Focusable,
-    DialogButton,
-    showModal} from "@decky/ui";
+    showModal,
+    ButtonItem
+} from "@decky/ui";
 import { useEffect } from "react";
+import { FaEdit } from "react-icons/fa";
 
 import { Position, ViewMode } from "./util";
 import { useGlobalState } from "./globalState";
 import { UrlModalWithState } from "./urlModal";
 
 export const Settings = () => {
-    const [{ viewMode, position, margin, size }, setGlobalState, stateContext] = useGlobalState();
+    const [{ viewMode, position, margin, url, size }, setGlobalState, stateContext] = useGlobalState();
 
     useEffect(() => {
         setGlobalState(state => ({
             ...state,
             visible: true,
-            viewMode: ViewMode.Picture
+            viewMode: state.viewMode == ViewMode.Closed
+                ? ViewMode.Picture
+                : state.viewMode
         }));
     }, []);
 
-    const options = [
+    const positionOptions = [
         { label: 'Top', data: Position.Top },
         { label: 'Top Right', data: Position.TopRight },
         { label: 'Right', data: Position.Right },
@@ -35,13 +37,33 @@ export const Settings = () => {
         { label: 'Top Left', data: Position.TopLeft },
     ];
 
+    const viewModeOptions = [
+        { label: 'Picture', data: ViewMode.Picture },
+        { label: 'Expand', data: ViewMode.Expand },
+        { label: 'Closed', data: ViewMode.Closed },
+    ];
+
     return <>
         <PanelSection>
+            <PanelSectionRow>
+                <ButtonItem
+                    label='Address'
+                    layout="below"
+                    onClick={() => showModal(<UrlModalWithState value={stateContext} />)}>
+                    <div style={{ display: 'flex' }}>
+                        <FaEdit />
+                        &nbsp;&nbsp;
+                        <div style={{ maxWidth: 180, textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {url}
+                        </div>
+                    </div>
+                </ButtonItem>
+            </PanelSectionRow>
             <PanelSectionRow>
                 <DropdownItem
                     label='Position'
                     selectedOption={position}
-                    rgOptions={options}
+                    rgOptions={positionOptions}
                     onMenuOpened={() =>
                         setGlobalState(state => ({
                             ...state,
@@ -100,47 +122,32 @@ export const Settings = () => {
                     ]} />
             </PanelSectionRow>
             <PanelSectionRow>
-                <ButtonItem
-                    layout="below"
-                    onClick={() => showModal(<UrlModalWithState value={stateContext} />)}>
-                    URL
-                </ButtonItem>
+                <DropdownItem
+                    label='Mode'
+                    selectedOption={viewMode}
+                    rgOptions={viewModeOptions}
+                    onMenuOpened={() =>
+                        setGlobalState(state => ({
+                            ...state,
+                            visible: false
+                        }))}
+                    onChange={option =>
+                        setGlobalState(state => ({
+                            ...state,
+                            visible: true,
+                            viewMode: option.data,
+                        }))} />
             </PanelSectionRow>
             <PanelSectionRow>
-                <Focusable style={{ display: "flex" }}>
-                    {viewMode != ViewMode.Expand &&
-                        <DialogButton
-                            style={{ flex: 1, minWidth: 0 }}
-                            onClick={() =>
-                                setGlobalState(state => ({
-                                    ...state,
-                                    visible: true,
-                                    viewMode: ViewMode.Expand
-                                }))}>
-                            Expand
-                        </DialogButton>}
-                    {viewMode == ViewMode.Expand &&
-                        <DialogButton
-                            style={{ flex: 1, minWidth: 0 }}
-                            onClick={() =>
-                                setGlobalState(state => ({
-                                    ...state,
-                                    visible: true,
-                                    viewMode: ViewMode.Picture
-                                }))}>
-                            Picture
-                        </DialogButton>}
-                    &nbsp;&nbsp;
-                    <DialogButton
-                        style={{ flex: 1, minWidth: 0 }}
-                        onClick={() =>
-                            setGlobalState(state => ({
-                                ...state,
-                                viewMode: ViewMode.Closed
-                            }))}>
-                        Close
-                    </DialogButton>
-                </Focusable>
+                <ButtonItem
+                    bottomSeparator="none"
+                    layout="below"
+                    onClick={() => setGlobalState(state => ({
+                        ...state,
+                        viewMode: ViewMode.Closed
+                    }))}>
+                    Close
+                </ButtonItem>
             </PanelSectionRow>
         </PanelSection>
     </>;

@@ -1,7 +1,7 @@
 import merge from 'lodash/merge'
 import { FaTv } from "react-icons/fa";
 import { StateManager } from "cotton-box";
-import { staticClasses } from "@decky/ui";
+import { quickAccessMenuClasses } from "@decky/ui";
 import { definePlugin, routerHook, } from "@decky/api";
 
 import { PipOuter } from "./pip";
@@ -33,7 +33,7 @@ export default definePlugin(() => {
 
     return {
         name: "Picture in Picture",
-        titleView: <div className={staticClasses.Title}>Picture in Picture</div>,
+        titleView: <div className={quickAccessMenuClasses.Title}>Picture in Picture</div>,
         icon: <FaTv />,
         content:
             <GlobalContext.Provider value={state}>
