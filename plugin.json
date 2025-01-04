@@ -1,11 +1,11 @@
 {
   "name": "Picture in Picture",
-  "author": "John Doe",
+  "author": "Ross Squires",
   "flags": ["debug", "_root"],
   "api_version": 1,
   "publish": {
     "tags": ["template", "root"],
-    "description": "Decky example plugin.",
-    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+    "description": "Watch your favorite stream while you game!",
+    "image": "https://raw.githubusercontent.com/rossimo/decky-pip/refs/heads/main/picture.jpg"
   }
 }

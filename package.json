@@ -1,6 +1,6 @@
 {
   "name": "decky-plugin-template",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A template to quickly create decky plugins from scratch, based on TypeScript and webpack",
   "type": "module",
   "scripts": {
@@ -20,7 +20,7 @@
     "deck"
   ],
   "author": "You <you@you.tld>",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SteamDeckHomebrew/decky-plugin-template/issues"
   },
