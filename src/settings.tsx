@@ -4,7 +4,8 @@ import {
     DropdownItem,
     SliderField,
     showModal,
-    ButtonItem
+    ButtonItem,
+    ToggleField
 } from "@decky/ui";
 import { useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -27,6 +28,7 @@ export const Settings = () => {
     }, []);
 
     const positionOptions = [
+        { label: 'Top Left', data: Position.TopLeft },
         { label: 'Top', data: Position.Top },
         { label: 'Top Right', data: Position.TopRight },
         { label: 'Right', data: Position.Right },
@@ -34,121 +36,129 @@ export const Settings = () => {
         { label: 'Bottom', data: Position.Bottom },
         { label: 'Bottom Left', data: Position.BottomLeft },
         { label: 'Left', data: Position.Left },
-        { label: 'Top Left', data: Position.TopLeft },
-    ];
-
-    const viewModeOptions = [
-        { label: 'Picture', data: ViewMode.Picture },
-        { label: 'Expand', data: ViewMode.Expand },
-        { label: 'Closed', data: ViewMode.Closed },
     ];
 
     return <>
         <PanelSection>
-            <PanelSectionRow>
-                <ButtonItem
-                    label='Address'
-                    layout="below"
-                    onClick={() => showModal(<UrlModalWithState value={stateContext} />)}>
-                    <div style={{ display: 'flex' }}>
-                        <FaEdit />
-                        &nbsp;&nbsp;
-                        <div style={{ maxWidth: 180, textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {url}
+            {viewMode == ViewMode.Closed && <>
+                <PanelSectionRow>
+                    <ButtonItem
+                        bottomSeparator="none"
+                        layout="below"
+                        onClick={() => setGlobalState(state => ({
+                            ...state,
+                            viewMode: ViewMode.Picture
+                        }))}>
+                        Open
+                    </ButtonItem>
+                </PanelSectionRow>
+            </>}
+            {viewMode != ViewMode.Closed && <>
+                <PanelSectionRow>
+                    <ButtonItem
+                        label='Address'
+                        layout="below"
+                        onClick={() => showModal(<UrlModalWithState value={stateContext} />)}>
+                        <div style={{ display: 'flex' }}>
+                            <FaEdit />
+                            &nbsp;&nbsp;
+                            <div style={{ maxWidth: 180, textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                                {url}
+                            </div>
                         </div>
-                    </div>
-                </ButtonItem>
-            </PanelSectionRow>
-            <PanelSectionRow>
-                <DropdownItem
-                    label='Position'
-                    selectedOption={position}
-                    rgOptions={positionOptions}
-                    onMenuOpened={() =>
-                        setGlobalState(state => ({
+                    </ButtonItem>
+                </PanelSectionRow>
+                <PanelSectionRow>
+                    <ToggleField
+                        label='Expand'
+                        checked={viewMode == ViewMode.Expand}
+                        onChange={checked => {
+                            setGlobalState(state => ({
+                                ...state,
+                                viewMode: checked
+                                    ? ViewMode.Expand
+                                    : ViewMode.Picture
+                            }))
+                        }} />
+                </PanelSectionRow>
+            </>}
+            {viewMode == ViewMode.Picture && <>
+                <PanelSectionRow>
+                    <DropdownItem
+                        label='View'
+                        selectedOption={position}
+                        rgOptions={positionOptions}
+                        onMenuOpened={() =>
+                            setGlobalState(state => ({
+                                ...state,
+                                visible: false
+                            }))}
+                        onChange={option =>
+                            setGlobalState(state => ({
+                                ...state,
+                                visible: true,
+                                position: option.data,
+                                viewMode: ViewMode.Picture
+                            }))} />
+                </PanelSectionRow>
+                <PanelSectionRow>
+                    <SliderField
+                        label='Size'
+                        value={size}
+                        onChange={size =>
+                            setGlobalState(state => ({
+                                ...state,
+                                size,
+                                visible: true,
+                                viewMode: ViewMode.Picture
+                            }))}
+                        min={0.70}
+                        max={1.30}
+                        step={0.15}
+                        notchCount={3}
+                        notchTicksVisible={true}
+                        notchLabels={[
+                            { label: "S", notchIndex: 0, value: 0.70 },
+                            { label: "M", notchIndex: 1, value: 1 },
+                            { label: "L", notchIndex: 2, value: 1.30 }
+                        ]} />
+                </PanelSectionRow>
+                <PanelSectionRow>
+                    <SliderField
+                        label='Margin'
+                        value={margin}
+                        onChange={margin =>
+                            setGlobalState(state => ({
+                                ...state,
+                                margin,
+                                visible: true,
+                                viewMode: ViewMode.Picture
+                            }))}
+                        min={0}
+                        max={60}
+                        step={15}
+                        notchCount={3}
+                        notchTicksVisible={true}
+                        notchLabels={[
+                            { label: "S", notchIndex: 0, value: 0 },
+                            { label: "M", notchIndex: 1, value: 30 },
+                            { label: "L", notchIndex: 2, value: 60 },
+                        ]} />
+                </PanelSectionRow>
+            </>}
+            {viewMode != ViewMode.Closed && <>
+                <PanelSectionRow>
+                    <ButtonItem
+                        bottomSeparator="none"
+                        layout="below"
+                        onClick={() => setGlobalState(state => ({
                             ...state,
-                            visible: false
-                        }))}
-                    onChange={option =>
-                        setGlobalState(state => ({
-                            ...state,
-                            visible: true,
-                            position: option.data,
-                            viewMode: ViewMode.Picture
-                        }))} />
-            </PanelSectionRow>
-            <PanelSectionRow>
-                <SliderField
-                    label='Size'
-                    value={size}
-                    onChange={size =>
-                        setGlobalState(state => ({
-                            ...state,
-                            size,
-                            visible: true,
-                            viewMode: ViewMode.Picture
-                        }))}
-                    min={0.70}
-                    max={1.30}
-                    step={0.15}
-                    notchCount={3}
-                    notchTicksVisible={true}
-                    notchLabels={[
-                        { label: "S", notchIndex: 0, value: 0.70 },
-                        { label: "M", notchIndex: 1, value: 1 },
-                        { label: "L", notchIndex: 2, value: 1.30 }
-                    ]} />
-            </PanelSectionRow>
-            <PanelSectionRow>
-                <SliderField
-                    label='Margin'
-                    value={margin}
-                    onChange={margin =>
-                        setGlobalState(state => ({
-                            ...state,
-                            margin,
-                            visible: true,
-                            viewMode: ViewMode.Picture
-                        }))}
-                    min={0}
-                    max={60}
-                    step={15}
-                    notchCount={3}
-                    notchTicksVisible={true}
-                    notchLabels={[
-                        { label: "S", notchIndex: 0, value: 0 },
-                        { label: "M", notchIndex: 1, value: 30 },
-                        { label: "L", notchIndex: 2, value: 60 },
-                    ]} />
-            </PanelSectionRow>
-            <PanelSectionRow>
-                <DropdownItem
-                    label='Mode'
-                    selectedOption={viewMode}
-                    rgOptions={viewModeOptions}
-                    onMenuOpened={() =>
-                        setGlobalState(state => ({
-                            ...state,
-                            visible: false
-                        }))}
-                    onChange={option =>
-                        setGlobalState(state => ({
-                            ...state,
-                            visible: true,
-                            viewMode: option.data,
-                        }))} />
-            </PanelSectionRow>
-            <PanelSectionRow>
-                <ButtonItem
-                    bottomSeparator="none"
-                    layout="below"
-                    onClick={() => setGlobalState(state => ({
-                        ...state,
-                        viewMode: ViewMode.Closed
-                    }))}>
-                    Close
-                </ButtonItem>
-            </PanelSectionRow>
+                            viewMode: ViewMode.Closed
+                        }))}>
+                        Close
+                    </ButtonItem>
+                </PanelSectionRow>
+            </>}
         </PanelSection>
     </>;
 };
