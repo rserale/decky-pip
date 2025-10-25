@@ -25,7 +25,11 @@ const Browser = ({ url, visible, x, y, width, height }: BrowserProps) => {
 
     const [{ browser, view }] = useState<{ browser: any, view: any }>(() => {
         const root: WindowRouter & any = Router.WindowStore?.GamepadUIMainWindowInstance;
-        const view = root.CreateBrowserView("pip");
+
+        const view = root.CreateBrowserView({
+        strName: "pip",
+        strUserAgentOverride: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.165 Safari/537.36"
+        });
         const browser = view.GetBrowser();
 
         window['pip' as any] = view;
